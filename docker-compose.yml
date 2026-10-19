@@ -1,0 +1,30 @@
+services:
+  router:
+    build: .
+    image: rust-inference-router:dev
+    command: ["--bind", "0.0.0.0:50051", "--workers", "/etc/router/workers.json"]
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./deploy/workers.json:/etc/router/workers.json:ro
+    depends_on:
+      - worker-a
+      - worker-b
+      - worker-c
+    environment:
+      RUST_LOG: info
+
+  worker-a:
+    image: hashicorp/http-echo:latest
+    command: ["-text=ok", "-listen=:9001"]
+    ports: ["9001:9001"]
+
+  worker-b:
+    image: hashicorp/http-echo:latest
+    command: ["-text=ok", "-listen=:9002"]
+    ports: ["9002:9002"]
+
+  worker-c:
+    image: hashicorp/http-echo:latest
+    command: ["-text=ok", "-listen=:9003"]
+    ports: ["9003:9003"]

@@ -1,0 +1,5 @@
+[
+  {"worker_id": "a", "addr": "http://worker-a:9001"},
+  {"worker_id": "b", "addr": "http://worker-b:9002"},
+  {"worker_id": "c", "addr": "http://worker-c:9003"}
+]

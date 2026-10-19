@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package router;
+
+service RouterService {
+  rpc Route(RouteRequest) returns (RouteResponse);
+  rpc HealthCheck(HealthRequest) returns (HealthResponse);
+}
+
+message RouteRequest {
+  string request_id = 1;
+  repeated uint32 prompt_tokens = 2;
+}
+
+message RouteResponse {
+  string worker_id = 1;
+  string worker_addr = 2;
+  bool prefix_cache_hit = 3;
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  bool ok = 1;
+}
